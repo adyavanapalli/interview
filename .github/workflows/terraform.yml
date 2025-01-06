@@ -1,0 +1,64 @@
+name: Terraform
+
+env:
+  ARM_USE_OIDC: true
+
+  ARM_CLIENT_ID: ${{ vars.CLIENT_ID }}
+  ARM_SUBSCRIPTION_ID: ${{ vars.SUBSCRIPTION_ID }}
+  ARM_TENANT_ID: ${{ vars.TENANT_ID }}
+
+defaults:
+  run:
+    working-directory: terraform
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  plan:
+    name: Plan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_wrapper: false
+
+      - name: Terraform Init
+        run: |
+          terraform init -backend-config='resource_group_name=Ue1HTFRG' \
+                         -backend-config='storage_account_name=ue1htf' \
+                         -backend-config='container_name=dev' \
+                         -backend-config='key=interview'
+
+  apply:
+    name: Apply
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_wrapper: false
+
+      - name: Terraform Init
+        run: |
+          terraform init -backend-config='resource_group_name=Ue1HTFRG' \
+                         -backend-config='storage_account_name=ue1htf' \
+                         -backend-config='container_name=dev' \
+                         -backend-config='key=interview'
