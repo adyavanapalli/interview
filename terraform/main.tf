@@ -4,7 +4,7 @@ resource "azurerm_resource_group" "example" {
 }
 
 module "vnet" {
-    source = ./network
+    source = "./network"
     vnet_name = "sample-vnet"
     location = azurerm_resource_group.example.location
     rg_name = azurerm_resource_group.example.name
