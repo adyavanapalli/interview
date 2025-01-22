@@ -44,7 +44,12 @@ jobs:
                          -backend-config='container_name=dev' \
                          -backend-config='key=interview'
 
+      - name: Terraform Plan
+        run: terraform plan
+
   apply:
+    if: ${{ github.ref == 'refs/heads/main' }}
+    needs: plan
     name: Apply
     runs-on: ubuntu-latest
     steps:
