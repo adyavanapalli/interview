@@ -49,6 +49,7 @@ jobs:
 
   apply:
     name: Apply
+    needs: plan
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
