@@ -1,11 +1,9 @@
-variable "resource_group_name"
-{
+variable "resource_group_name" {
     type = string
     default = "rg-sfs-cus"
 }
 
-variable "location"
-{
+variable "location" {
     type = string
     default = "Central US"
 }
