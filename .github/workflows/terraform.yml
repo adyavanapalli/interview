@@ -43,6 +43,9 @@ jobs:
                          -backend-config='storage_account_name=ue1htf' \
                          -backend-config='container_name=dev' \
                          -backend-config='key=interview'
+      - name: Terraform Plan 
+        run: | 
+          terraform plan
 
   apply:
     name: Apply
